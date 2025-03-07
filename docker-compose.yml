@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  anaconda:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: anaconda_dotnet
+    ports:
+      - "8888:8888"  # Expose Jupyter notebook port
+    volumes:
+      - ./notebooks:/home/user/notebooks  # Mount a local directory for notebooks
+    environment:
+      JUPYTER_ENABLE_LAB: "yes" # Enable JupyterLab by default (optional)
+    stdin_open: true  # Allows interactive shell
+    tty: true         # Allocates a pseudo-TTY
