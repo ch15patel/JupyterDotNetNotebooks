@@ -1,0 +1,17 @@
+{
+    "name": "JupyterDotNetNotebooks",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "Jupyter .NET Notebooks with Anaconda and Phython 3.12",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-toolsai.jupyter"
+            ]
+        },
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+}

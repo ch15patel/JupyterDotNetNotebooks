@@ -1,5 +1,40 @@
 # Jupyter .NET Notebooks
+## Table of Contents
 
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Dockerfile](#dockerfile)
+  - [Docker Compose](#docker-compose)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+- [How to setup dev container](#how-to-setup-dev-container)
+
+## Overview
+
+This repository contains the necessary files to set up a Docker container for running Jupyter Notebooks with .NET support. It leverages Anaconda for Python package management and includes a development container configuration for Visual Studio Code.
+
+## Features
+
+- Jupyter Notebooks with .NET and Python support
+- Dockerized environment for easy setup and deployment
+- Development container configuration for Visual Studio Code
+- Pre-configured Anaconda environment with Python 3.12
+- .NET Interactive for running C# and F# code in Jupyter Notebooks
+- JupyterLab enabled by default
+
+## Installation
+
+Clone the repository:
+
+```sh
+git clone https://github.com/yourusername/JupyterDotNetNotebooks.git
+cd JupyterDotNetNotebooks
+```
 This project provides a Docker setup for running Jupyter Notebooks with .NET support.
 
 ## Prerequisites
