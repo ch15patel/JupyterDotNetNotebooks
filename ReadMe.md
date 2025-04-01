@@ -1,145 +1,117 @@
-# Jupyter .NET Notebooks
+# Jupyter .NET Notebooks Docker Setup
+
+This project provides a Docker container for running Jupyter Notebooks with .NET Interactive and Python 3.12.
+
 ## Table of Contents
 
-- [Jupyter .NET Notebooks](#jupyter-net-notebooks)
+- [Jupyter .NET Notebooks Docker Setup](#jupyter-net-notebooks-docker-setup)
   - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
   - [Features](#features)
-  - [Installation](#installation)
-  - [Prerequisites](#prerequisites)
-  - [Getting Started](#getting-started)
-    - [Dockerfile](#dockerfile)
-    - [Docker Compose](#docker-compose)
+  - [How to setup dev container](#how-to-setup-dev-container)
   - [Usage](#usage)
+    - [Build the Docker Image](#build-the-docker-image)
+    - [Run the Container](#run-the-container)
+    - [Access Jupyter Notebook](#access-jupyter-notebook)
+  - [Environment Details](#environment-details)
+  - [Installed Tools](#installed-tools)
+  - [Notes](#notes)
   - [Project Structure](#project-structure)
   - [Contributing](#contributing)
   - [License](#license)
-    - [How to setup dev container](#how-to-setup-dev-container)
-
-## Overview
-
-This repository contains the necessary files to set up a Docker container for running Jupyter Notebooks with .NET support. It leverages Anaconda for Python package management and includes a development container configuration for Visual Studio Code.
 
 ## Features
 
-- Jupyter Notebooks with .NET, Python, and PowerShell support
-- Dockerized environment for easy setup and deployment
-- Development container configuration for Visual Studio Code
-- Pre-configured Anaconda environment with Python 3.12
-- .NET Interactive for running C#, F#, and PowerShell code in Jupyter Notebooks
-- JupyterLab enabled by default
+- .NET SDK 9.0.200
+- Anaconda with Python 3.12 environment
+- Jupyter Notebook pre-installed
+- .NET Interactive for Jupyter
 
-## Installation
+## How to setup dev container
 
-Clone the repository:
+To add a development container configuration for this project, you need to create a `.devcontainer` folder with a `devcontainer.json` file. This file will define the settings for the development container.
 
-```sh
-git clone https://github.com/yourusername/JupyterDotNetNotebooks.git
-cd JupyterDotNetNotebooks
-```
-This project provides a Docker setup for running Jupyter Notebooks with .NET support.
+Here is the updated `devcontainer.json` file:
 
-## Prerequisites
-
-- Docker
-- Docker Compose
-
-## Getting Started
-
-### Dockerfile
-
-The Dockerfile sets up the environment with Jupyter and .NET support.
-
-```dockerfile
-FROM mcr.microsoft.com/dotnet/sdk:9.0.200
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    wget && \
-    rm -rf /var/lib/apt/lists/*
-
-ENV USER="user" \
-    HOME="/home/user" \
-    PATH="/home/user/anaconda/bin:/home/user/.dotnet/tools:/home/user/anaconda/envs/py3.12/bin:${PATH}" \
-    DOTNET_CLI_TELEMETRY_OPTOUT=1
-
-RUN useradd -ms /bin/bash $USER && \
-    mkdir -p $HOME && \
-    chown -R $USER:$USER $HOME
-
-USER $USER
-WORKDIR $HOME
-
-RUN wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh -O anaconda.sh && \
-    chmod +x anaconda.sh && \
-    ./anaconda.sh -b -p $HOME/anaconda && \
-    rm ./anaconda.sh
-
-RUN dotnet tool install -g --add-source "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json" Microsoft.dotnet-interactive && \
-    dotnet interactive jupyter install
-
-RUN conda create -n py3.12 python=3.12 -y && \
-    conda install -n py3.12 notebook -y && \
-    echo "source activate py3.12" > ~/.bashrc
-
-EXPOSE 8888
-ENTRYPOINT ["jupyter", "notebook", "--no-browser", "--ip=0.0.0.0"]
+```json
+{
+    "name": "jupyterdotnetnotebooks",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "jupyterlabwithdotnet",
+    "workspaceFolder": "/home/user/notebooks",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-toolsai.jupyter"
+            ]
+        },
+        "settings": {
+            "terminal.integrated.shell.linux": "/bin/bash"
+        }
+    }
+}
 ```
 
-### Docker Compose
+Make sure to create the `.devcontainer` directory in the root of your project and place the `devcontainer.json` file inside it.
 
-The Docker Compose file orchestrates the Docker container setup.
+This configuration will use the existing `docker-compose.yml` file to set up the development container, and it will use the `jupyterlabwithdotnet` service defined in your `docker-compose.yml` file.
 
-```yaml
-version: "3.8"
+**How to open remote dev container**
 
-services:
-  jupyterlabwithdotnet:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: jupyterlab_dotnet_anaconda
-    ports:
-      - "8888:8888"  # Expose Jupyter notebook port
-    volumes:
-      - ./notebooks:/home/user/notebooks  # Mount a local directory for notebooks
-    environment:
-      JUPYTER_ENABLE_LAB: "yes" # Enable JupyterLab by default (optional)
-    stdin_open: true  # Allows interactive shell
-    tty: true         # Allocates a pseudo-TTY
-```
+![Remote Window](/Images/RemoteWindowButton.png)
+![Reopen in Container Command option](/Images/RemoteContainerCommandOptions.png)
+- Click "Open a Remote Window" button as shown in screenshot
+- Select "Reopen in container" option
 
 ## Usage
 
-1. Build the Docker image:
+### Build the Docker Image
+To build the Docker image, run:
+```bash
+docker build -t jupyter-dotnet-notebooks .
+```
 
-    ```sh
-    docker-compose build
-    ```
+### Run the Container
+To start the container:
+```bash
+docker run -p 8888:8888 jupyter-dotnet-notebooks
+```
 
-2. Start the Jupyter Notebook server:
+### Access Jupyter Notebook
+Open your browser and navigate to `http://localhost:8888`. Use the token provided in the container logs to log in.
 
-    ```sh
-    docker-compose up
-    ```
+![Container Logs](/Images/ContainerLogs.png)
 
-3. Open your web browser and navigate to `http://localhost:8888` to access the Jupyter Notebook interface.
+## Environment Details
+- **User**: `user`
+- **Home Directory**: `/home/user`
+- **Python Environment**: `py3.12` (Python 3.12)
+- **Path Updates**:
+  - `/home/user/anaconda/bin`
+  - `/home/user/.dotnet/tools`
+  - `/home/user/anaconda/envs/py3.12/bin`
+
+## Installed Tools
+1. **Anaconda**: Installed in `/home/user/anaconda`.
+2. **.NET Interactive**: Installed globally as a .NET tool with .Net 9 SDK.
+3. **Jupyter Notebook**: Installed in the Python 3.12 environment.
+
+## Notes
+- The container exposes port `8888` for Jupyter Notebook.
+- The Python environment `py3.12` is activated by default in the container.
 
 ## Project Structure
 
 ```
 .
-├── Dockerfile
-├── docker-compose.yml
-├── .devcontainer/
-│   └── devcontainer.json
-└── notebooks/
-    ├── CS13-Features.ipynb
-    ├── EFCoreSample.ipynb
-    ├── PowerShell-Scripts1.ipynb
-    └── .ipynb_checkpoints/
-        ├── CS13-Features-checkpoint.ipynb
-        ├── EFCoreSample-checkpoint.ipynb
-        └── PowerShell-Scripts1-checkpoint.ipynb
+├── 📄 Dockerfile
+├── 📄 docker-compose.yml
+├── 📂 .devcontainer/
+│   └── 📄 devcontainer.json
+└── 📂 notebooks/
+    ├── 📓 CS13-Features.ipynb
+    ├── 📓 EFCoreSample.ipynb
+    └── 📓 PowerShell-Scripts1.ipynb
 ```
 
 - `Dockerfile`: Contains the instructions to build the Docker image.
@@ -155,30 +127,5 @@ Feel free to submit issues and pull requests. Contributions are welcome!
 
 This project is licensed under the MIT License.
 
-### How to setup dev container
 
-To add a development container configuration for this project, you need to create a `.devcontainer` folder with a `devcontainer.json` file. This file will define the settings for the development container.
-
-Here is the updated `devcontainer.json` file:
-
-```json
-{
-    "name": "jupyterdotnetnotebooks",
-    "dockerComposeFile": "../docker-compose.yml",
-    "service": "jupyterlabwithdotnet",
-    "workspaceFolder": "/workspace",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-python.python",
-                "ms-toolsai.jupyter"
-            ]
-        },
-        "settings": {
-            "terminal.integrated.shell.linux": "/bin/bash"
-        }
-    }
-}
-```
-
-Make sure to create the `.devcontainer` directory in the root of your project and place the `devcontainer.json` file inside it. This configuration will use the existing `docker-compose.yml` file to set up the development container, and it will use the `jupyterlabwithdotnet` service defined in your `docker-compose.yml` file.
+[Go to TOC](#table-of-contents)
