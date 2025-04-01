@@ -1,0 +1,8 @@
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore Trash folders
+.Trash-1655/
+
+.Trash*/
+.*/
