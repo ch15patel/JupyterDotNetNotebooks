@@ -1,11 +1,11 @@
 version: "3.8"
 
 services:
-  anaconda:
+  jupyterlabwithdotnet:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: anaconda_dotnet
+    container_name: jupyterlab_dotnet_anaconda
     ports:
       - "8888:8888"  # Expose Jupyter notebook port
     volumes:

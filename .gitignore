@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore Jupyter notebook checkpoints
 .ipynb_checkpoints/
 
@@ -6,3 +7,7 @@
 
 .Trash*/
 .*/
+=======
+.ipynb_checkpoints/
+*.bak
+>>>>>>> 99572a4a61b637e72c94b793299a83ce6b4161f6
