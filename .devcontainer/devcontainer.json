@@ -1,7 +1,7 @@
 {
-    "name": "JupyterDotNetNotebooks",
+    "name": "jupyterdotnetnotebooks",
     "dockerComposeFile": "../docker-compose.yml",
-    "service": "Jupyter .NET Notebooks with Anaconda and Phython 3.12",
+    "service": "jupyterlabwithdotnet",  // The name of the service in the docker-compose file
     "workspaceFolder": "/workspace",
     "customizations": {
         "vscode": {
