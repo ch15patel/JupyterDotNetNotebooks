@@ -2,7 +2,7 @@
     "name": "jupyterdotnetnotebooks",
     "dockerComposeFile": "../docker-compose.yml",
     "service": "jupyterlabwithdotnet",  // The name of the service in the docker-compose file
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/home/user/notebooks",  // The path inside the container where your workspace will be mounted
     "customizations": {
         "vscode": {
             "extensions": [
