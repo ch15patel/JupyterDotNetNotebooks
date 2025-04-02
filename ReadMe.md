@@ -1,5 +1,7 @@
 # Jupyter .NET Notebooks Docker Setup
 
+This project provides a Docker container for running Jupyter Notebooks with .NET Interactive, .Net 9 SDK, Anaconda3 and Python 3.12.
+
 ## Table of Contents
 
 - [Jupyter .NET Notebooks Docker Setup](#jupyter-net-notebooks-docker-setup)
