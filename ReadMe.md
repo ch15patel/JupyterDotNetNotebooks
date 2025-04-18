@@ -4,8 +4,6 @@ This project provides a Docker container for running Jupyter Notebooks with .NET
 
 ## Table of Contents
 
-- [Jupyter .NET Notebooks Docker Setup](#jupyter-net-notebooks-docker-setup)
-  - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [How to setup dev container](#how-to-setup-dev-container)
   - [Usage](#usage)
