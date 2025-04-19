@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0.200
+FROM mcr.microsoft.com/dotnet/sdk:9.0.203
 
 ENV USER="user" \
     HOME="/home/user" \

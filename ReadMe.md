@@ -2,10 +2,10 @@
 
 This project provides a Docker container for running Jupyter Notebooks with .NET Interactive, .Net 9 SDK, Anaconda3 and Python 3.12.
 
+> Both dockerfile and docker-compose.yml files are generated using GitHub Copilot and then edited to fix minor bugs and improvements.
+
 ## Table of Contents
 
-- [Jupyter .NET Notebooks Docker Setup](#jupyter-net-notebooks-docker-setup)
-  - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [How to setup dev container](#how-to-setup-dev-container)
   - [Usage](#usage)
@@ -21,7 +21,7 @@ This project provides a Docker container for running Jupyter Notebooks with .NET
 
 ## Features
 
-![.NET 9](https://img.shields.io/badge/.NET-9.0-blueviolet?style=for-the-badge)
+![.NET 9](https://img.shields.io/badge/.NET-9.0.203-blueviolet?style=for-the-badge)
 ![Anaconda 3](https://img.shields.io/badge/Anaconda-3-darkgreen?style=for-the-badge)
 ![Python 3.12](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge)
 ![Jupyter Python](https://img.shields.io/badge/Jupyter-Python-orange?style=for-the-badge)
@@ -31,6 +31,9 @@ This project provides a Docker container for running Jupyter Notebooks with .NET
 - Anaconda with Python 3.12 environment
 - Jupyter Notebook pre-installed
 - .NET Interactive for Jupyter
+- Optimized docker image. 
+
+> NOTE: Dockerfile.bak is non-optimized version which shows step by step installation of each tool.
 
 ## How to setup dev container
 
@@ -64,8 +67,8 @@ This configuration will use the existing `docker-compose.yml` file to set up the
 
 **How to open remote dev container**
 
-![Remote Window](/Images/RemoteWindowButton.png)
-![Reopen in Container Command option](/Images/RemoteContainerCommandOptions.png)
+![Remote Window](Images/RemoteWindowButton.png)
+![Reopen in Container Command option](Images/RemoteContainerCommandOptions.png)
 - Click "Open a Remote Window" button as shown in screenshot
 - Select "Reopen in container" option
 
@@ -86,7 +89,7 @@ docker run -p 8888:8888 jupyter-dotnet-notebooks
 ### Access Jupyter Notebook
 Open your browser and navigate to `http://localhost:8888`. Use the token provided in the container logs to log in.
 
-![Container Logs](/Images/ContainerLogs.png)
+![Container Logs](Images/ContainerLogs.png)
 
 ## Environment Details
 - **User**: `user`
