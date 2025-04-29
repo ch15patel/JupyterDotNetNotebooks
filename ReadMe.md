@@ -6,6 +6,8 @@ This project provides a Docker container for running Jupyter Notebooks with .NET
 
 ## Table of Contents
 
+- [Jupyter .NET Notebooks Docker Setup](#jupyter-net-notebooks-docker-setup)
+  - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [How to setup dev container](#how-to-setup-dev-container)
   - [Usage](#usage)
@@ -31,7 +33,7 @@ This project provides a Docker container for running Jupyter Notebooks with .NET
 - Anaconda with Python 3.12 environment
 - Jupyter Notebook pre-installed
 - .NET Interactive for Jupyter
-- Optimized docker image. 
+- Optimized docker image.
 
 > NOTE: Dockerfile.bak is non-optimized version which shows step by step installation of each tool.
 
@@ -87,6 +89,7 @@ docker run -p 8888:8888 jupyter-dotnet-notebooks
 ```
 
 ### Access Jupyter Notebook
+
 Open your browser and navigate to `http://localhost:8888`. Use the token provided in the container logs to log in.
 
 ![Container Logs](Images/ContainerLogs.png)
@@ -113,14 +116,14 @@ Open your browser and navigate to `http://localhost:8888`. Use the token provide
 
 ```
 .
-├── 📄 Dockerfile
-├── 📄 docker-compose.yml
-├── 📂 .devcontainer/
-│   └── 📄 devcontainer.json
-└── 📂 notebooks/
-    ├── 📓 CS13-Features.ipynb
-    ├── 📓 EFCoreSample.ipynb
-    └── 📓 PowerShell-Scripts1.ipynb
+├── 📄 Dockerfile                   # Main Docker image build
+├── 📄 docker-compose.yml           # Docker Compose configuration for
+├── 📂 .devcontainer/               # VS Code development container
+│   └── 📄 devcontainer.json        # Dev container settings and
+└── 📂 notebooks/                   # Directory containing Jupyter
+  ├── 📓 CS13-Features.ipynb        # C#13 features demonstration sample
+  ├── 📓 Python_HelloWorld.ipynb    # Python sample notebook
+  └── 📓 PowerShell-Scripts1.ipynb  # PowerShell scripting examples
 ```
 
 - `Dockerfile`: Contains the instructions to build the Docker image.
